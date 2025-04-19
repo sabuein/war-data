@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+       <meta charset="UTF-8" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       <meta
+           name="description"
+           content="War Data Visualization - A respectful interface for casualty data"
+       />
+       <meta name="theme-color" content="#ffffff" />
+       <title>War Data Visualization</title>
+       <link rel="stylesheet" href="assets/css/styles.css" />
+       <link rel="manifest" href="manifest.json" />
+       <link
+           rel="icon"
+           type="image/png"
+           href="assets/images/icon-192x192.png"
+       />
+       <link rel="apple-touch-icon" href="assets/images/icon-192x192.png" />
+   </head>
+   <body>
+       <header>
+           <div class="container">
+               <h1><a href="/">War Data Visualization</a></h1>
+               <nav>
+                   <ul>
+                       <li><a href="?page=home" class="active" data-page="home" data-i18n="home_tab">Home</a></li>
+                       <li>
+                           <a href="?page=statistics" data-page="statistics" data-i18n="statistics_tab"
+                               >Statistics</a
+                           >
+                       </li>
+                       <li><a href="?page=memorial" data-page="memorial" data-i18n="memorial_tab">Memorial</a></li>
+                       <li>
+                           <a href="?page=infrastructure" data-page="infrastructure" data-i18n="infrastructure_tab"
+                               >Infrastructure</a
+                           >
+                       </li>
+                       <li><a href="?page=contact" data-page="contact" data-i18n="contact_tab">Contact</a></li>
+                   </ul>
+               </nav>
+               <div class="settings">
+                   <select id="language-selector">
+                       <option value="en" selected>English</option>
+                       <option value="ar">العربية</option>
+                   </select>
+                   <button id="theme-toggle" aria-label="Toggle dark mode">
+                       <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           width="20"
+                           height="20"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           stroke="currentColor"
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           class="moon"
+                       >
+                           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                       </svg>
+                       <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           width="20"
+                           height="20"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           stroke="currentColor"
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           class="sun"
+                       >
+                           <circle cx="12" cy="12" r="4"></circle>
+                           <path d="M12 2v2"></path>
+                           <path d="M12 20v2"></path>
+                           <path d="m4.93 4.93 1.41 1.41"></path>
+                           <path d="m17.66 17.66 1.41 1.41"></path>
+                           <path d="M2 12h2"></path>
+                           <path d="M20 12h2"></path>
+                           <path d="m6.34 17.66-1.41 1.41"></path>
+                           <path d="m19.07 4.93-1.41 1.41"></path>
+                       </svg>
+                   </button>
+               </div>
+           </div>
+       </header>
+
+       <!-- loading spinner -->
+       <div id="loader" class="loader hidden"></div>
+
+       <!-- main content -->
+       <main id="content" class="container">
+           <div id="loading" class="loading">
+               <div class="spinner"></div>
+               <p data-i18n="loading">Loading data...</p>
+           </div>
+
+           <!-- Current filters display -->
+           <div class="current-filters">
+               <div class="filter-badge">
+                   <span data-i18n="region">Region</span>:
+                   <span id="current-region-display">Gaza</span>
+               </div>
+               <div class="filter-badge">
+                   <span data-i18n="date">Date</span>:
+                   <span id="current-date-display">October 7, 2023</span>
+               </div>
+               <div class="filter-group global-date-selector">
+                   <label for="global-date-select" data-i18n="select_date">Select Date:</label>
+                   <select id="global-date-select" class="filter-select"></select>
+               </div>
+           </div>
+
+           <section id="home" class="page active">
+               <div class="home-header">
+                   <h2 data-i18n="home_title">Welcome to War Data Visualization</h2>
+                   <p data-i18n="home_description">
+                       This application provides visualization of data related to the conflict.
+                       Please select a section below to explore the information.
+                   </p>
+               </div>
+               
+               <div class="home-content">
+                   <div class="home-card">
+                       <h3 data-i18n="statistics_overview">Statistics</h3>
+                       <p data-i18n="statistics_description">
+                           View casualty statistics by region and date, with breakdowns by demographic categories.
+                       </p>
+                       <button class="home-btn" data-target="statistics" data-i18n="explore_statistics">
+                           Explore Statistics
+                       </button>
+                   </div>
+                   
+                   <div class="home-card">
+                       <h3 data-i18n="memorial_overview">Memorial</h3>
+                       <p data-i18n="memorial_description">
+                           Honor those who have lost their lives in this conflict.
+                       </p>
+                       <button class="home-btn" data-target="memorial" data-i18n="visit_memorial">
+                           Visit Memorial
+                       </button>
+                   </div>
+                   
+                   <div class="home-card">
+                       <h3 data-i18n="infrastructure_overview">Infrastructure</h3>
+                       <p data-i18n="infrastructure_description">
+                           Examine data related to infrastructure damage during the conflict.
+                       </p>
+                       <button class="home-btn" data-target="infrastructure" data-i18n="view_infrastructure">
+                           View Infrastructure Data
+                       </button>
+                   </div>
+                   
+                   <div class="home-card">
+                       <h3 data-i18n="contact_overview">Contact</h3>
+                       <p data-i18n="contact_description">
+                           Get in touch with us for questions, feedback, or support.
+                       </p>
+                       <button class="home-btn" data-target="contact" data-i18n="contact_us">
+                           Contact Us
+                       </button>
+                   </div>
+               </div>
+           </section>
+
+           <section id="statistics" class="page">
+               <!-- Add loading indicator for statistics page -->
+               <div id="statistics-loading" class="page-loading">
+                   <div class="spinner"></div>
+                   <p data-i18n="loading_statistics">Loading statistics data...</p>
+               </div>
+
+               <div class="filter-controls">
+                   <div class="filter-group">
+                       <label for="date-select" data-i18n="select_date"
+                           >Select Date:</label
+                       >
+                       <select id="date-select" class="filter-select"></select>
+                   </div>
+
+                   <div class="date-selector">
+                       <button
+                           id="prev-date"
+                           class="date-nav"
+                           aria-label="Previous date"
+                       >
+                           <svg
+                               xmlns="http://www.w3.org/2000/svg"
+                               width="24"
+                               height="24"
+                               viewBox="0 0 24 24"
+                               fill="none"
+                               stroke="currentColor"
+                               stroke-width="2"
+                               stroke-linecap="round"
+                               stroke-linejoin="round"
+                           >
+                               <path d="m15 18-6-6 6-6"></path>
+                           </svg>
+                       </button>
+                       <h2 id="current-date">October 7, 2023</h2>
+                       <button
+                           id="next-date"
+                           class="date-nav"
+                           aria-label="Next date"
+                       >
+                           <svg
+                               xmlns="http://www.w3.org/2000/svg"
+                               width="24"
+                               height="24"
+                               viewBox="0 0 24 24"
+                               fill="none"
+                               stroke="currentColor"
+                               stroke-width="2"
+                               stroke-linecap="round"
+                               stroke-linejoin="round"
+                           >
+                               <path d="m9 18 6-6-6-6"></path>
+                           </svg>
+                       </button>
+                   </div>
+               </div>
+
+               <div class="region-selector">
+                   <button
+                       id="select-region-prompt"
+                       class="region-btn active"
+                       data-region=""
+                       data-i18n="select_region"
+                   >
+                       Select Region
+                   </button>
+                   <button
+                       id="gaza-region"
+                       class="region-btn"
+                       data-region="gaza"
+                       data-i18n="gaza_region"
+                   >
+                       Gaza
+                   </button>
+                   <button
+                       id="westbank-region"
+                       class="region-btn"
+                       data-region="westbank"
+                       data-i18n="westbank_region"
+                   >
+                       West Bank
+                   </button>
+               </div>
+
+               <div id="region-selection-message" class="info-message">
+                   <p data-i18n="please_select_region">Please select a region to view statistics.</p>
+               </div>
+
+               <div id="statistics-content" class="hidden">
+                   <div class="stats-grid">
+                       <div class="stat-card">
+                           <h3 data-i18n="total_casualties">Total Casualties</h3>
+                           <div class="stat-value" id="total-casualties">-</div>
+                       </div>
+                       <div class="stat-card">
+                           <h3 data-i18n="children">Children</h3>
+                           <div class="stat-value" id="children-casualties">-</div>
+                       </div>
+                       <div class="stat-card">
+                           <h3 data-i18n="women">Women</h3>
+                           <div class="stat-value" id="women-casualties">-</div>
+                       </div>
+                       <div class="stat-card">
+                           <h3 data-i18n="medical_personnel">Medical Personnel</h3>
+                           <div class="stat-value" id="medical-casualties">-</div>
+                       </div>
+                       <div class="stat-card">
+                           <h3 data-i18n="press">Press</h3>
+                           <div class="stat-value" id="press-casualties">-</div>
+                       </div>
+                       <div class="stat-card">
+                           <h3 data-i18n="injured">Injured</h3>
+                           <div class="stat-value" id="injured">-</div>
+                       </div>
+                   </div>
+
+                   <div class="chart-container">
+                       <canvas id="casualties-chart"></canvas>
+                   </div>
+               </div>
+           </section>
+
+           <section id="memorial" class="page">
+               <div class="memorial-header">
+                   <h2 data-i18n="memorial_title">In Memory</h2>
+                   <p data-i18n="memorial_description">
+                       Honoring those who have lost their lives in this
+                       conflict. May they rest in peace.
+                   </p>
+               </div>
+
+               <div class="memorial-filters">
+                   <button
+                       class="filter-btn active"
+                       data-filter="all"
+                       data-i18n="all_casualties"
+                   >
+                       All Casualties
+                   </button>
+                   <button
+                       class="filter-btn"
+                       data-filter="press"
+                       data-i18n="journalists"
+                   >
+                       Journalists
+                   </button>
+                   <button
+                       class="filter-btn"
+                       data-filter="children"
+                       data-i18n="children"
+                   >
+                       Children
+                   </button>
+                   <button
+                       class="filter-btn"
+                       data-filter="women"
+                       data-i18n="women"
+                   >
+                       Women
+                   </button>
+                   <button
+                       class="filter-btn"
+                       data-filter="medical"
+                       data-i18n="medical_personnel"
+                   >
+                       Medical Personnel
+                   </button>
+               </div>
+
+               <div class="search-container">
+                   <input
+                       type="text"
+                       id="search-names"
+                       placeholder="Search names..."
+                       data-i18n-placeholder="search_names"
+                   />
+               </div>
+
+               <!-- Add loading indicator for memorial page -->
+               <div id="memorial-loading" class="page-loading">
+                   <div class="spinner"></div>
+                   <p data-i18n="loading_memorial">Loading memorial data...</p>
+               </div>
+
+               <div class="memorial-grid" id="memorial-grid">
+                   <!-- Names will be populated here -->
+               </div>
+
+               <!-- new: stand‑alone pager -->
+               <div id="memorial-pagination" class="pagination-text"></div>
+           </section>
+
+           <section id="infrastructure" class="page">
+               <div class="infrastructure-header">
+                   <h2 data-i18n="infrastructure_title">
+                       Infrastructure Damage
+                   </h2>
+                   <p data-i18n="infrastructure_description">
+                       Data on infrastructure damaged during the conflict.
+                   </p>
+               </div>
+
+               <div class="date-selector">
+                   <button
+                       id="infra-prev-date"
+                       class="date-nav"
+                       aria-label="Previous date"
+                   >
+                       <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           width="24"
+                           height="24"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           stroke="currentColor"
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                       >
+                           <path d="m15 18-6-6 6-6"></path>
+                       </svg>
+                   </button>
+                   <h2 id="infra-current-date">October 7, 2023</h2>
+                   <button
+                       id="infra-next-date"
+                       class="date-nav"
+                       aria-label="Next date"
+                   >
+                       <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           width="24"
+                           height="24"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           stroke="currentColor"
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                       >
+                           <path d="m9 18 6-6-6-6"></path>
+                       </svg>
+                   </button>
+               </div>
+
+               <!-- Add loading indicator for infrastructure page -->
+               <div id="infrastructure-loading" class="page-loading">
+                   <div class="spinner"></div>
+                   <p data-i18n="loading_infrastructure">
+                       Loading infrastructure data...
+                   </p>
+               </div>
+
+               <div class="infra-grid">
+                   <!-- Infrastructure data will be populated here -->
+               </div>
+
+               <div class="chart-container">
+                   <canvas id="infrastructure-chart"></canvas>
+               </div>
+           </section>
+           
+           <!-- New Contact Section -->
+           <section id="contact" class="page">
+               <div class="contact-header">
+                   <h2 data-i18n="contact_title">Contact Us</h2>
+                   <p data-i18n="contact_description">
+                       Get in touch with us for questions, feedback, or support regarding this data visualization tool.
+                   </p>
+               </div>
+               
+               <div class="contact-form-container">
+                   <form id="contact-form" class="contact-form">
+                       <div class="form-group">
+                           <label for="name" data-i18n="contact_name">Name</label>
+                           <input type="text" id="name" name="name" required>
+                       </div>
+                       
+                       <div class="form-group">
+                           <label for="email" data-i18n="contact_email">Email</label>
+                           <input type="email" id="email" name="email" required>
+                       </div>
+                       
+                       <div class="form-group">
+                           <label for="subject" data-i18n="contact_subject">Subject</label>
+                           <input type="text" id="subject" name="subject" required>
+                       </div>
+                       
+                       <div class="form-group">
+                           <label for="message" data-i18n="contact_message">Message</label>
+                           <textarea id="message" name="message" rows="5" required></textarea>
+                       </div>
+                       
+                       <button type="submit" class="submit-btn" data-i18n="contact_submit">Send Message</button>
+                   </form>
+                   
+                   <div id="contact-success" class="contact-success hidden">
+                       <p data-i18n="contact_success">Your message has been sent successfully. We'll get back to you soon.</p>
+                   </div>
+               </div>
+           </section>
+       </main>
+
+       <footer>
+           <div class="container">
+               <p data-i18n="data_source">Data source: Tech For Palestine</p>
+               <p>
+                   <span data-i18n="last_updated">Last updated:</span> 
+                   <span id="last-updated">-</span>
+               </p>
+               <p>
+                   <span data-i18n="data_cached">Data cached:</span> 
+                   <span id="data-cached-time"></span>
+               </p>
+           </div>
+       </footer>
+
+       <div id="offline-message" class="offline-message hidden">
+           <p data-i18n="offline_message">
+               You are currently offline. Some data may not be up to date.
+           </p>
+       </div>
+
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+       <script type="module" src="assets/js/mods/i18n.js"></script>
+       <script type="module" src="assets/js/mods/data.js"></script>
+       <script type="module" src="assets/js/mods/ui.js"></script>
+       <script type="module" src="assets/js/app.js"></script>
+       <script>
+           // Register service worker for PWA
+           if ("serviceWorker" in navigator) {
+               window.addEventListener("load", () => {
+                   navigator.serviceWorker
+                       .register("/service-worker.js")
+                       .then((registration) => {
+                           console.log(
+                               "ServiceWorker registration successful with scope: ",
+                               registration.scope
+                           );
+                       })
+                       .catch((error) => {
+                           console.log(
+                               "ServiceWorker registration failed: ",
+                               error
+                           );
+                       });
+               });
+           }
+       </script>
+   </body>
+</html>

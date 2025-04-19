@@ -1,0 +1,40 @@
+{
+    "name": "War Data Visualization",
+    "short_name": "War Data",
+    "description": "A respectful interface for visualizing war casualty data",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#3b82f6",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "assets/images/icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "assets/images/icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "any maskable"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "assets/images/screenshot1.png",
+        "type": "image/png",
+        "sizes": "540x720"
+      },
+      {
+        "src": "assets/images/screenshot2.png",
+        "type": "image/png",
+        "sizes": "540x720"
+      }
+    ],
+    "categories": ["news", "education"],
+    "lang": "en",
+    "dir": "ltr"
+  }
+  
