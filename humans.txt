@@ -1,0 +1,7 @@
+- Fonts https://gwfh.mranftl.com/fonts
+- PX to REM converter (instantly and bidirectional) https://nekocalc.com/px-to-rem-converter
+- Online JavaScript beautifier https://beautifier.io/
+- DummyJSON - Free Fake REST API for Placeholder JSON Data https://dummyjson.com/
+- Placehold | A simple, fast and free image placeholder service https://placehold.co/
+
+Thank you! :-)
