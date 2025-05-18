@@ -1,0 +1,47 @@
+{
+  "gaza": {
+    "reports": 590,
+    "last_update": "2025-05-18",
+    "massacres": 12000,
+    "killed": {
+      "total": 53339,
+      "children": 18000,
+      "women": 12400,
+      "civil_defence": 113,
+      "press": 217,
+      "medical": 1411
+    },
+    "injured": {
+      "total": 121034
+    }
+  },
+  "west_bank": {
+    "reports": 590,
+    "last_update": "2025-05-18",
+    "settler_attacks": 2150,
+    "killed": {
+      "total": 924,
+      "children": 187
+    },
+    "injured": {
+      "total": 8095,
+      "children": 1436
+    }
+  },
+  "known_killed_in_gaza": {
+    "records": 50020,
+    "male": {
+      "adult": 23082,
+      "senior": 1535,
+      "child": 8899
+    },
+    "female": {
+      "adult": 8775,
+      "senior": 1015,
+      "child": 6714
+    }
+  },
+  "known_press_killed_in_gaza": {
+    "records": 215
+  }
+}
